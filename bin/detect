@@ -1,7 +1,19 @@
 #!/usr/bin/env bash
 
-BUILD_DIR="$1"
+if [ -z "$CNB_STACK_ID" ]; then
+    # v2 API
+    APP_DIR=$1
+else
+    PLATFORM_DIR=$1
+    PLAN=$2
+    # working is the cwd now
+    # v3 API
+    APP_DIR=$(pwd)
+fi
 
-[[ -d ${BUILD_SIR}/public/fonts ]] || exit 1
-
-echo "Fonts"
+if [[ -d ${APP_DIR}/public/fonts ]]; then
+    echo "Fonts"
+else
+    env
+    exit 1
+fi
