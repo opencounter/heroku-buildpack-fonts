@@ -1,18 +1,10 @@
 #!/usr/bin/env bash
 
-function indent() {
-  c='s/^/       /'
-  case $(uname) in
-    Darwin) sed -l "$c";;
-    *)      sed -u "$c";;
-  esac
-}
-
 BUILD_DIR="$1"
-TARGET_DIR="$BUILD_DIR/.fonts"
+TARGET_DIR="/app/.fonts"
 
-echo "-----> Extracting fonts to $TARGET_DIR"
+echo "-----> Copying fonts to $TARGET_DIR"
 
 mkdir -p "$TARGET_DIR"
-find ${BUILD_SIR}/public/fonts -name '*.ttf' -print -exec cp -at "${TARGET_DIR}" {} +
+find "${BUILD_DIR}/public/fonts" -name '*.ttf' -print -exec cp -at "${TARGET_DIR}" {} +
 fc-cache -fv
